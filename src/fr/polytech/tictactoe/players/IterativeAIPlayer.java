@@ -10,7 +10,7 @@ import fr.polytech.tictactoe.game.TicTacToe;
  * @author DELORME Loïc
  * @since 1.0.0
  */
-public class AIPlayer extends Player
+public class IterativeAIPlayer extends Player
 {
 	/**
 	 * Create an artificial intelligence player.
@@ -20,7 +20,7 @@ public class AIPlayer extends Player
 	 * @param representation
 	 *            The representation.
 	 */
-	public AIPlayer(String name, Mark representation)
+	public IterativeAIPlayer(String name, Mark representation)
 	{
 		super(name, representation);
 	}

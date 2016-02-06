@@ -119,54 +119,7 @@ public class TicTacToe
 	 */
 	private boolean hasPlayerWon(IPlayer currentPlayer)
 	{
-		return (hasPlayerWonOnARow(currentPlayer) || hasPlayerWonOnAColumn(currentPlayer) || hasPlayerWonOnADiagonal(currentPlayer));
-	}
-
-	/**
-	 * Check if the player has won on a row.
-	 * 
-	 * @param currentPlayer
-	 *            The current player.
-	 * @return True or False.
-	 */
-	private boolean hasPlayerWonOnARow(IPlayer currentPlayer)
-	{
-		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getRepresentation()) && (this.boardGame[0][1] == currentPlayer.getRepresentation()) && (this.boardGame[0][2] == currentPlayer.getRepresentation()));
-		hasWon |= ((this.boardGame[1][0] == currentPlayer.getRepresentation()) && (this.boardGame[1][1] == currentPlayer.getRepresentation()) && (this.boardGame[1][2] == currentPlayer.getRepresentation()));
-		hasWon |= ((this.boardGame[2][0] == currentPlayer.getRepresentation()) && (this.boardGame[2][1] == currentPlayer.getRepresentation()) && (this.boardGame[2][2] == currentPlayer.getRepresentation()));
-
-		return hasWon;
-	}
-
-	/**
-	 * Check if the player has won on a column.
-	 * 
-	 * @param currentPlayer
-	 *            The current player.
-	 * @return True or False.
-	 */
-	private boolean hasPlayerWonOnAColumn(IPlayer currentPlayer)
-	{
-		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getRepresentation()) && (this.boardGame[1][0] == currentPlayer.getRepresentation()) && (this.boardGame[2][0] == currentPlayer.getRepresentation()));
-		hasWon |= ((this.boardGame[0][1] == currentPlayer.getRepresentation()) && (this.boardGame[1][1] == currentPlayer.getRepresentation()) && (this.boardGame[2][1] == currentPlayer.getRepresentation()));
-		hasWon |= ((this.boardGame[0][2] == currentPlayer.getRepresentation()) && (this.boardGame[1][2] == currentPlayer.getRepresentation()) && (this.boardGame[2][2] == currentPlayer.getRepresentation()));
-
-		return hasWon;
-	}
-
-	/**
-	 * Check if the player has won on a diagonal.
-	 * 
-	 * @param currentPlayer
-	 *            The current player.
-	 * @return True or False.
-	 */
-	private boolean hasPlayerWonOnADiagonal(IPlayer currentPlayer)
-	{
-		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getRepresentation()) && (this.boardGame[1][1] == currentPlayer.getRepresentation()) && (this.boardGame[2][2] == currentPlayer.getRepresentation()));
-		hasWon |= ((this.boardGame[0][2] == currentPlayer.getRepresentation()) && (this.boardGame[1][1] == currentPlayer.getRepresentation()) && (this.boardGame[2][0] == currentPlayer.getRepresentation()));
-
-		return hasWon;
+		return VictoryHelper.hasWon(currentPlayer.getRepresentation(), this.boardGame);
 	}
 
 	/**

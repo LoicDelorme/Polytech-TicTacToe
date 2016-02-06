@@ -8,7 +8,7 @@ import fr.polytech.tictactoe.game.GameResult;
 import fr.polytech.tictactoe.game.ITicTacToeObserver;
 import fr.polytech.tictactoe.game.Players;
 import fr.polytech.tictactoe.game.TicTacToe;
-import fr.polytech.tictactoe.players.IPlayer;
+import fr.polytech.tictactoe.game.players.IPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -103,7 +103,7 @@ public class JavaFXTicTacToeViewController implements ITicTacToeObserver, EventH
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.game.ITicTacToeObserver#notifyCellHasBeenMarked(fr.polytech.tictactoe.game.Coordinate, fr.polytech.tictactoe.players.IPlayer)
+	 * @see fr.polytech.tictactoe.game.ITicTacToeObserver#notifyCellHasBeenMarked(fr.polytech.tictactoe.game.Coordinate, fr.polytech.tictactoe.game.players.IPlayer)
 	 */
 	@Override
 	public void notifyCellHasBeenMarked(Coordinate coordinate, IPlayer currentPlayer)
@@ -116,7 +116,7 @@ public class JavaFXTicTacToeViewController implements ITicTacToeObserver, EventH
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.game.ITicTacToeObserver#notifyGameResult(fr.polytech.tictactoe.game.GameResult, fr.polytech.tictactoe.players.IPlayer)
+	 * @see fr.polytech.tictactoe.game.ITicTacToeObserver#notifyGameResult(fr.polytech.tictactoe.game.GameResult, fr.polytech.tictactoe.game.players.IPlayer)
 	 */
 	@Override
 	public void notifyGameResult(GameResult gameResult, IPlayer currentPlayer)

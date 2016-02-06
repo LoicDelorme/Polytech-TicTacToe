@@ -1,8 +1,8 @@
 package fr.polytech.tictactoe;
 
 import fr.polytech.tictactoe.game.Mark;
-import fr.polytech.tictactoe.players.HumanPlayer;
-import fr.polytech.tictactoe.players.IterativeAIPlayer;
+import fr.polytech.tictactoe.game.players.HumanPlayer;
+import fr.polytech.tictactoe.game.players.IterativeAIPlayer;
 import fr.polytech.tictactoe.view.JavaFXTicTacToeViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

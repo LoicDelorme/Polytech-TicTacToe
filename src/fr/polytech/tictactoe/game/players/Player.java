@@ -1,4 +1,4 @@
-package fr.polytech.tictactoe.players;
+package fr.polytech.tictactoe.game.players;
 
 import fr.polytech.tictactoe.game.Mark;
 
@@ -35,7 +35,7 @@ public abstract class Player implements IPlayer
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.players.IPlayer#getName()
+	 * @see fr.polytech.tictactoe.game.players.IPlayer#getName()
 	 */
 	@Override
 	public String getName()
@@ -44,7 +44,7 @@ public abstract class Player implements IPlayer
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.players.IPlayer#getRepresentation()
+	 * @see fr.polytech.tictactoe.game.players.IPlayer#getRepresentation()
 	 */
 	@Override
 	public Mark getRepresentation()

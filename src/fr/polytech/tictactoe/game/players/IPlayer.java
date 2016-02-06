@@ -1,4 +1,4 @@
-package fr.polytech.tictactoe.players;
+package fr.polytech.tictactoe.game.players;
 
 import fr.polytech.tictactoe.game.Coordinate;
 import fr.polytech.tictactoe.game.Mark;

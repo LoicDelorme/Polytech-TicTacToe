@@ -1,4 +1,4 @@
-package fr.polytech.tictactoe.players;
+package fr.polytech.tictactoe.game.players;
 
 import fr.polytech.tictactoe.game.Coordinate;
 import fr.polytech.tictactoe.game.Mark;
@@ -26,7 +26,7 @@ public class IterativeAIPlayer extends Player
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.Mark[][])
+	 * @see fr.polytech.tictactoe.game.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.Mark[][])
 	 */
 	@Override
 	public Coordinate getNextChoice(Mark[][] boardGame)

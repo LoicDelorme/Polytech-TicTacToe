@@ -1,6 +1,6 @@
 package fr.polytech.tictactoe.game;
 
-import fr.polytech.tictactoe.players.IPlayer;
+import fr.polytech.tictactoe.game.players.IPlayer;
 
 /**
  * This interface represents a game observer.

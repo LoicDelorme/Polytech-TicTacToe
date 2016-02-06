@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import fr.polytech.tictactoe.players.IPlayer;
+import fr.polytech.tictactoe.game.players.IPlayer;
 
 /**
  * This class represents a set of players.

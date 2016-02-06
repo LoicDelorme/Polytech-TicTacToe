@@ -1,4 +1,4 @@
-package fr.polytech.tictactoe.players;
+package fr.polytech.tictactoe.game.players;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class RecursiveAIPlayer extends Player
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.Mark[][])
+	 * @see fr.polytech.tictactoe.game.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.Mark[][])
 	 */
 	@Override
 	public Coordinate getNextChoice(Mark[][] boardGame)

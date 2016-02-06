@@ -1,4 +1,4 @@
-package fr.polytech.tictactoe.game;
+package fr.polytech.tictactoe.game.boardgame;
 
 import java.util.ArrayList;
 import java.util.Arrays;

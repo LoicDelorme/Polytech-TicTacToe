@@ -1,5 +1,10 @@
 package fr.polytech.tictactoe.game;
 
+import fr.polytech.tictactoe.game.boardgame.Coordinate;
+import fr.polytech.tictactoe.game.boardgame.GameResult;
+import fr.polytech.tictactoe.game.boardgame.Mark;
+import fr.polytech.tictactoe.game.boardgame.Players;
+import fr.polytech.tictactoe.game.boardgame.VictoryHelper;
 import fr.polytech.tictactoe.game.players.IPlayer;
 
 /**

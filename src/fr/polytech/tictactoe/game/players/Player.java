@@ -1,6 +1,6 @@
 package fr.polytech.tictactoe.game.players;
 
-import fr.polytech.tictactoe.game.Mark;
+import fr.polytech.tictactoe.game.boardgame.Mark;
 
 /**
  * This class represents a player.

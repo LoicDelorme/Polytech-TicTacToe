@@ -1,7 +1,7 @@
 package fr.polytech.tictactoe.game.players;
 
-import fr.polytech.tictactoe.game.Coordinate;
-import fr.polytech.tictactoe.game.Mark;
+import fr.polytech.tictactoe.game.boardgame.Coordinate;
+import fr.polytech.tictactoe.game.boardgame.Mark;
 
 /**
  * This interface represents a player.

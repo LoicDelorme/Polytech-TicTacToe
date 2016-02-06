@@ -1,4 +1,4 @@
-package fr.polytech.tictactoe.game;
+package fr.polytech.tictactoe.game.boardgame;
 
 /**
  * This enumeration represents all marks.

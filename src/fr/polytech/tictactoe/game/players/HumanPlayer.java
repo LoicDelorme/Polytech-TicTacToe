@@ -1,7 +1,7 @@
 package fr.polytech.tictactoe.game.players;
 
-import fr.polytech.tictactoe.game.Coordinate;
-import fr.polytech.tictactoe.game.Mark;
+import fr.polytech.tictactoe.game.boardgame.Coordinate;
+import fr.polytech.tictactoe.game.boardgame.Mark;
 
 /**
  * This class represents a human player.
@@ -25,7 +25,7 @@ public class HumanPlayer extends Player
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.game.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.Mark[][])
+	 * @see fr.polytech.tictactoe.game.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.boardgame.Mark[][])
 	 */
 	@Override
 	public Coordinate getNextChoice(Mark[][] boardGame)

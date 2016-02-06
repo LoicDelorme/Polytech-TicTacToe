@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import fr.polytech.tictactoe.game.Coordinate;
-import fr.polytech.tictactoe.game.Mark;
 import fr.polytech.tictactoe.game.TicTacToe;
-import fr.polytech.tictactoe.game.VictoryHelper;
+import fr.polytech.tictactoe.game.boardgame.Coordinate;
+import fr.polytech.tictactoe.game.boardgame.Mark;
+import fr.polytech.tictactoe.game.boardgame.VictoryHelper;
 
 /**
  * This class represents an artificial intelligence player.
@@ -36,7 +36,7 @@ public class RecursiveAIPlayer extends Player
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.game.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.Mark[][])
+	 * @see fr.polytech.tictactoe.game.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.boardgame.Mark[][])
 	 */
 	@Override
 	public Coordinate getNextChoice(Mark[][] boardGame)

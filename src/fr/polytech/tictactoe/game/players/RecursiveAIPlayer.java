@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import fr.polytech.tictactoe.game.TicTacToe;
+import fr.polytech.tictactoe.game.boardgame.BoardGameHelper;
 import fr.polytech.tictactoe.game.boardgame.Coordinate;
 import fr.polytech.tictactoe.game.boardgame.Mark;
-import fr.polytech.tictactoe.game.boardgame.VictoryHelper;
 
 /**
  * This class represents an artificial intelligence player.
@@ -41,25 +41,12 @@ public class RecursiveAIPlayer extends Player
 	@Override
 	public Coordinate getNextChoice(Mark[][] boardGame)
 	{
-		return computedCoordinate(boardGame, DEPTH);
-	}
-
-	/**
-	 * Get the coordinate to play.
-	 * 
-	 * @param boardGame
-	 *            The board game.
-	 * @param depth
-	 *            The depth.
-	 * @return The coordinate to play.
-	 */
-	private Coordinate computedCoordinate(Mark[][] boardGame, int depth)
-	{
 		final Mark[][] clonedBoardGame = boardGame.clone();
+
 		int maxValue = Integer.MIN_VALUE;
-		int maxX = -1;
-		int maxY = -1;
 		int tmpValue;
+		int bestX = 0;
+		int bestY = 0;
 
 		for (int x = 0; x < TicTacToe.NB_LINES; x++)
 		{
@@ -68,13 +55,13 @@ public class RecursiveAIPlayer extends Player
 				if (clonedBoardGame[x][y] == Mark.EMPTY)
 				{
 					clonedBoardGame[x][y] = getRepresentation();
-					tmpValue = min(clonedBoardGame, DEPTH - 1);
+					tmpValue = min(clonedBoardGame, DEPTH);
 
 					if (tmpValue > maxValue)
 					{
 						maxValue = tmpValue;
-						maxX = x;
-						maxY = y;
+						bestX = x;
+						bestY = y;
 					}
 
 					clonedBoardGame[x][y] = Mark.EMPTY;
@@ -82,12 +69,21 @@ public class RecursiveAIPlayer extends Player
 			}
 		}
 
-		return new Coordinate(maxX, maxY);
+		return new Coordinate(bestX, bestY);
 	}
 
+	/**
+	 * Minimize.
+	 * 
+	 * @param boardGame
+	 *            The board game.
+	 * @param depth
+	 *            The depth.
+	 * @return The minimize value.
+	 */
 	private int min(Mark[][] boardGame, int depth)
 	{
-		if (depth == 0 || VictoryHelper.hasWon(getRepresentation(), boardGame))
+		if ((depth == 0) || BoardGameHelper.allCellAreMarked(boardGame) || BoardGameHelper.hasWon(getRepresentation(), boardGame) || BoardGameHelper.hasWon(getOpponentMark(), boardGame))
 		{
 			return evaluate(boardGame);
 		}
@@ -102,7 +98,7 @@ public class RecursiveAIPlayer extends Player
 				if (boardGame[x][y] == Mark.EMPTY)
 				{
 					boardGame[x][y] = getRepresentation();
-					tmpValue = max(boardGame, DEPTH - 1);
+					tmpValue = max(boardGame, depth - 1);
 
 					if (tmpValue < minValue)
 					{
@@ -117,9 +113,18 @@ public class RecursiveAIPlayer extends Player
 		return minValue;
 	}
 
+	/**
+	 * Maximize.
+	 * 
+	 * @param boardGame
+	 *            The board game.
+	 * @param depth
+	 *            The depth.
+	 * @return The maximize value.
+	 */
 	private int max(Mark[][] boardGame, int depth)
 	{
-		if (depth == 0 || VictoryHelper.hasWon(getRepresentation(), boardGame))
+		if ((depth == 0) || BoardGameHelper.allCellAreMarked(boardGame) || BoardGameHelper.hasWon(getRepresentation(), boardGame) || BoardGameHelper.hasWon(getOpponentMark(), boardGame))
 		{
 			return evaluate(boardGame);
 		}
@@ -133,12 +138,8 @@ public class RecursiveAIPlayer extends Player
 			{
 				if (boardGame[x][y] == Mark.EMPTY)
 				{
-					List<Mark> marks = new ArrayList<Mark>(Arrays.asList(Mark.values()));
-					marks.remove(Mark.EMPTY);
-					marks.remove(getRepresentation());
-
-					boardGame[x][y] = marks.get(0);
-					tmpValue = min(boardGame, DEPTH - 1);
+					boardGame[x][y] = getRepresentation();
+					tmpValue = min(boardGame, depth - 1);
 
 					if (tmpValue > maxValue)
 					{
@@ -154,12 +155,79 @@ public class RecursiveAIPlayer extends Player
 	}
 
 	/**
+	 * Evaluate the board game.
+	 * 
 	 * @param boardGame
-	 * @return
+	 *            The board game.
+	 * @return The evaluation of the board game.
 	 */
 	private int evaluate(Mark[][] boardGame)
 	{
-		// TODO Auto-generated method stub
+		int nbMarks = 0;
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+			{
+				if (boardGame[x][y] != Mark.EMPTY)
+				{
+					nbMarks++;
+				}
+			}
+		}
+
+		if (BoardGameHelper.hasWon(getRepresentation(), boardGame))
+		{
+			return 1000 - nbMarks;
+		}
+
+		if (BoardGameHelper.hasWon(getOpponentMark(), boardGame))
+		{
+			return -1000 + nbMarks;
+		}
+
+		if (BoardGameHelper.allCellAreMarked(boardGame))
+		{
+			return 0;
+		}
+
+		return numberOfSeries(getRepresentation(), boardGame, 2) - numberOfSeries(getOpponentMark(), boardGame, 2);
+	}
+
+	/**
+	 * Counter the number of series.
+	 * 
+	 * @param representation
+	 *            The representation.
+	 * @param boardGame
+	 *            The board game.
+	 * @param n
+	 *            The number of marks.
+	 * @return The number of series.
+	 */
+	private int numberOfSeries(Mark representation, Mark[][] boardGame, int n)
+	{
+		// int counter = 0;https://openclassrooms.com/courses/l-algorithme-min-max
+		// for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		// {
+		// if (boardGame[x][x] == representation)
+		// {
+		// counter++;
+		// }
+		// }
 		return 0;
+	}
+
+	/**
+	 * Get the opponent mark.
+	 * 
+	 * @return The opponent mark.
+	 */
+	private Mark getOpponentMark()
+	{
+		final List<Mark> marks = new ArrayList<Mark>(Arrays.asList(Mark.values()));
+		marks.remove(Mark.EMPTY);
+		marks.remove(getRepresentation());
+
+		return marks.get(0);
 	}
 }

@@ -1,10 +1,10 @@
 package fr.polytech.tictactoe.game;
 
+import fr.polytech.tictactoe.game.boardgame.BoardGameHelper;
 import fr.polytech.tictactoe.game.boardgame.Coordinate;
 import fr.polytech.tictactoe.game.boardgame.GameResult;
 import fr.polytech.tictactoe.game.boardgame.Mark;
 import fr.polytech.tictactoe.game.boardgame.Players;
-import fr.polytech.tictactoe.game.boardgame.VictoryHelper;
 import fr.polytech.tictactoe.game.players.IPlayer;
 
 /**
@@ -124,7 +124,7 @@ public class TicTacToe
 	 */
 	private boolean hasPlayerWon(IPlayer currentPlayer)
 	{
-		return VictoryHelper.hasWon(currentPlayer.getRepresentation(), this.boardGame);
+		return BoardGameHelper.hasWon(currentPlayer.getRepresentation(), this.boardGame);
 	}
 
 	/**
@@ -134,17 +134,6 @@ public class TicTacToe
 	 */
 	private boolean allCellAreMarked()
 	{
-		for (int x = 0; x < NB_LINES; x++)
-		{
-			for (int y = 0; y < NB_COLUMNS; y++)
-			{
-				if (this.boardGame[x][y] == Mark.EMPTY)
-				{
-					return false;
-				}
-			}
-		}
-
-		return true;
+		return BoardGameHelper.allCellAreMarked(this.boardGame);
 	}
 }

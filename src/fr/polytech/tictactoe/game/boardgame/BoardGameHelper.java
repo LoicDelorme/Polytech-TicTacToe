@@ -1,12 +1,14 @@
 package fr.polytech.tictactoe.game.boardgame;
 
+import fr.polytech.tictactoe.game.TicTacToe;
+
 /**
- * This class represents
+ * This class represents a board game helper.
  *
  * @author DELORME Loïc
  * @since 1.0.0
  */
-public class VictoryHelper
+public class BoardGameHelper
 {
 	/**
 	 * Check if the player has won.
@@ -73,5 +75,29 @@ public class VictoryHelper
 		hasWon |= ((boardGame[0][2] == representation) && (boardGame[1][1] == representation) && (boardGame[2][0] == representation));
 
 		return hasWon;
+	}
+
+	/**
+	 * Check if all cell are marked.
+	 * 
+	 * @param boardGame
+	 *            The board game.
+	 * 
+	 * @return True or False.
+	 */
+	public static boolean allCellAreMarked(Mark[][] boardGame)
+	{
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+			{
+				if (boardGame[x][y] == Mark.EMPTY)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 }

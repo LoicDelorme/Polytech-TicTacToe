@@ -51,4 +51,49 @@ public class Coordinate
 	{
 		return this.y;
 	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return this.x + this.y;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+
+		if (obj == null)
+		{
+			return false;
+		}
+
+		if (!(obj instanceof Coordinate))
+		{
+			return false;
+		}
+
+		Coordinate coordinate = (Coordinate) obj;
+
+		if (this.x != coordinate.x)
+		{
+			return false;
+		}
+
+		if (this.y != coordinate.y)
+		{
+			return false;
+		}
+
+		return true;
+	}
 }

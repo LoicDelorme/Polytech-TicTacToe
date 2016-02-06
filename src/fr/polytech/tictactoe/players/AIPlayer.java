@@ -2,6 +2,7 @@ package fr.polytech.tictactoe.players;
 
 import fr.polytech.tictactoe.game.Coordinate;
 import fr.polytech.tictactoe.game.Mark;
+import fr.polytech.tictactoe.game.TicTacToe;
 
 /**
  * This class represents an artificial intelligence player.
@@ -25,12 +26,23 @@ public class AIPlayer extends Player
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.players.IPlayer#getNextChoice()
+	 * @see fr.polytech.tictactoe.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.Mark[][])
 	 */
 	@Override
-	public Coordinate getNextChoice()
+	public Coordinate getNextChoice(Mark[][] boardGame)
 	{
-		// TODO ADD ALGORITHM HERE.
+		// TODO ADD ALGORITHM
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+			{
+				if (boardGame[x][y] == Mark.EMPTY)
+				{
+					return new Coordinate(x, y);
+				}
+			}
+		}
+
 		return null;
 	}
 }

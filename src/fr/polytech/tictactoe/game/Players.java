@@ -51,13 +51,11 @@ public class Players
 	 */
 	public void updateNextPlayer()
 	{
-		if ((this.currentPlayerOffset + 1) == this.players.size())
+		this.currentPlayerOffset++;
+
+		if (this.currentPlayerOffset == this.players.size())
 		{
 			this.currentPlayerOffset = 0;
-		}
-		else
-		{
-			this.currentPlayerOffset++;
 		}
 	}
 }

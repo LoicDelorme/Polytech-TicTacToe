@@ -11,15 +11,41 @@ public enum Mark
     /**
      * The case is empty.
      */
-	EMPTY,
+	EMPTY(""),
 
 	/**
 	 * The case is a cross.
 	 */
-	X,
+	X("/fr/polytech/tictactoe/view/resources/cross.png"),
 
 	/**
 	 * The case is a circle.
 	 */
-	O;
+	O("/fr/polytech/tictactoe/view/resources/round.png");
+
+	/**
+	 * The image path.
+	 */
+	private final String imagePath;
+
+	/**
+	 * Private constructor.
+	 * 
+	 * @param imagePath
+	 *            The image path.
+	 */
+	private Mark(String imagePath)
+	{
+		this.imagePath = imagePath;
+	}
+
+	/**
+	 * Get the image path.
+	 * 
+	 * @return The image path.
+	 */
+	public String getImagePath()
+	{
+		return this.imagePath;
+	}
 }

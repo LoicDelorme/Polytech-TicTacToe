@@ -44,10 +44,10 @@ public abstract class Player implements IPlayer
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.players.IPlayer#getMarkRepresentation()
+	 * @see fr.polytech.tictactoe.players.IPlayer#getRepresentation()
 	 */
 	@Override
-	public Mark getMarkRepresentation()
+	public Mark getRepresentation()
 	{
 		return this.representation;
 	}

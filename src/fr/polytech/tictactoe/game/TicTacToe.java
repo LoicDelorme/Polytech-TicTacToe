@@ -67,13 +67,19 @@ public class TicTacToe
 	public void markCell(Coordinate coordinate)
 	{
 		final IPlayer currentPlayer = this.players.getCurrentPlayer();
-		this.boardGame[coordinate.getX()][coordinate.getY()] = currentPlayer.getMarkRepresentation();
+		this.boardGame[coordinate.getX()][coordinate.getY()] = currentPlayer.getRepresentation();
 		this.observer.notifyCellHasBeenMarked(coordinate, currentPlayer);
 
 		final GameResult gameResult = getGameResult(currentPlayer);
-		if (gameResult != GameResult.NOT_FINISHED)
+		if (gameResult == GameResult.NOT_FINISHED)
 		{
 			this.players.updateNextPlayer();
+
+			final Coordinate potentialNextCoordinate = this.players.getCurrentPlayer().getNextChoice(this.boardGame);
+			if (potentialNextCoordinate != null)
+			{
+				markCell(potentialNextCoordinate);
+			}
 		}
 		else
 		{
@@ -125,9 +131,9 @@ public class TicTacToe
 	 */
 	private boolean hasPlayerWonOnARow(IPlayer currentPlayer)
 	{
-		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getMarkRepresentation()) && (this.boardGame[0][1] == currentPlayer.getMarkRepresentation()) && (this.boardGame[0][2] == currentPlayer.getMarkRepresentation()));
-		hasWon &= ((this.boardGame[1][0] == currentPlayer.getMarkRepresentation()) && (this.boardGame[1][1] == currentPlayer.getMarkRepresentation()) && (this.boardGame[1][2] == currentPlayer.getMarkRepresentation()));
-		hasWon &= ((this.boardGame[2][0] == currentPlayer.getMarkRepresentation()) && (this.boardGame[2][1] == currentPlayer.getMarkRepresentation()) && (this.boardGame[2][2] == currentPlayer.getMarkRepresentation()));
+		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getRepresentation()) && (this.boardGame[0][1] == currentPlayer.getRepresentation()) && (this.boardGame[0][2] == currentPlayer.getRepresentation()));
+		hasWon |= ((this.boardGame[1][0] == currentPlayer.getRepresentation()) && (this.boardGame[1][1] == currentPlayer.getRepresentation()) && (this.boardGame[1][2] == currentPlayer.getRepresentation()));
+		hasWon |= ((this.boardGame[2][0] == currentPlayer.getRepresentation()) && (this.boardGame[2][1] == currentPlayer.getRepresentation()) && (this.boardGame[2][2] == currentPlayer.getRepresentation()));
 
 		return hasWon;
 	}
@@ -141,9 +147,9 @@ public class TicTacToe
 	 */
 	private boolean hasPlayerWonOnAColumn(IPlayer currentPlayer)
 	{
-		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getMarkRepresentation()) && (this.boardGame[1][0] == currentPlayer.getMarkRepresentation()) && (this.boardGame[2][0] == currentPlayer.getMarkRepresentation()));
-		hasWon &= ((this.boardGame[0][1] == currentPlayer.getMarkRepresentation()) && (this.boardGame[1][1] == currentPlayer.getMarkRepresentation()) && (this.boardGame[2][1] == currentPlayer.getMarkRepresentation()));
-		hasWon &= ((this.boardGame[0][2] == currentPlayer.getMarkRepresentation()) && (this.boardGame[1][2] == currentPlayer.getMarkRepresentation()) && (this.boardGame[2][2] == currentPlayer.getMarkRepresentation()));
+		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getRepresentation()) && (this.boardGame[1][0] == currentPlayer.getRepresentation()) && (this.boardGame[2][0] == currentPlayer.getRepresentation()));
+		hasWon |= ((this.boardGame[0][1] == currentPlayer.getRepresentation()) && (this.boardGame[1][1] == currentPlayer.getRepresentation()) && (this.boardGame[2][1] == currentPlayer.getRepresentation()));
+		hasWon |= ((this.boardGame[0][2] == currentPlayer.getRepresentation()) && (this.boardGame[1][2] == currentPlayer.getRepresentation()) && (this.boardGame[2][2] == currentPlayer.getRepresentation()));
 
 		return hasWon;
 	}
@@ -157,8 +163,8 @@ public class TicTacToe
 	 */
 	private boolean hasPlayerWonOnADiagonal(IPlayer currentPlayer)
 	{
-		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getMarkRepresentation()) && (this.boardGame[1][1] == currentPlayer.getMarkRepresentation()) && (this.boardGame[2][2] == currentPlayer.getMarkRepresentation()));
-		hasWon &= ((this.boardGame[0][2] == currentPlayer.getMarkRepresentation()) && (this.boardGame[1][1] == currentPlayer.getMarkRepresentation()) && (this.boardGame[2][0] == currentPlayer.getMarkRepresentation()));
+		boolean hasWon = ((this.boardGame[0][0] == currentPlayer.getRepresentation()) && (this.boardGame[1][1] == currentPlayer.getRepresentation()) && (this.boardGame[2][2] == currentPlayer.getRepresentation()));
+		hasWon |= ((this.boardGame[0][2] == currentPlayer.getRepresentation()) && (this.boardGame[1][1] == currentPlayer.getRepresentation()) && (this.boardGame[2][0] == currentPlayer.getRepresentation()));
 
 		return hasWon;
 	}

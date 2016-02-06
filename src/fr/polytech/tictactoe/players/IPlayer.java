@@ -19,16 +19,19 @@ public interface IPlayer
 	public String getName();
 
 	/**
-	 * Get the mark representation.
+	 * Get the representation.
 	 * 
-	 * @return The mark representation.
+	 * @return The representation.
 	 */
-	public Mark getMarkRepresentation();
+	public Mark getRepresentation();
 
 	/**
 	 * Get the next choice.
 	 * 
+	 * @param boardGame
+	 *            The board game.
+	 * 
 	 * @return The next choice.
 	 */
-	public Coordinate getNextChoice();
+	public Coordinate getNextChoice(Mark[][] boardGame);
 }

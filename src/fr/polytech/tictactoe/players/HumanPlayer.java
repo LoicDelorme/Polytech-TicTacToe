@@ -25,10 +25,10 @@ public class HumanPlayer extends Player
 	}
 
 	/**
-	 * @see fr.polytech.tictactoe.players.IPlayer#getNextChoice()
+	 * @see fr.polytech.tictactoe.players.IPlayer#getNextChoice(fr.polytech.tictactoe.game.Mark[][])
 	 */
 	@Override
-	public Coordinate getNextChoice()
+	public Coordinate getNextChoice(Mark[][] boardGame)
 	{
 		return null;
 	}

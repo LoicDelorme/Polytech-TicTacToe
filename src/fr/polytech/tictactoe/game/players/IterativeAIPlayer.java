@@ -53,7 +53,7 @@ public class IterativeAIPlayer extends Player
                 for (int j = 0; j < 3; j++)
                 {
                     if (boardGame[i][j] == Mark.EMPTY)
-                    	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
+                    	return new Coordinate(i,j); //Point décisif donc return pour ne pas avoir à finir l'algo
                 }
             }
         }
@@ -74,7 +74,7 @@ public class IterativeAIPlayer extends Player
                 for (int i = 0; i < 3; i++)
                 {
                     if (boardGame[i][j] == Mark.EMPTY)
-                    	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
+                    	return new Coordinate(i,j); //Point décisif donc return pour ne pas avoir à finir l'algo
                 }
             }
         }
@@ -95,7 +95,7 @@ public class IterativeAIPlayer extends Player
             {
                 int j = i;
                 if (boardGame[i][j] == Mark.EMPTY)
-                	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
+                	return new Coordinate(i,j); //Point décisif donc return pour ne pas avoir à finir l'algo
             }
         }
         // Teste la diagonale de droite à gauche
@@ -178,7 +178,7 @@ public class IterativeAIPlayer extends Player
             for (int j = 0; j < 3; j++)
             {
                 if (boardGame[i][j] == Mark.O || boardGame[i][j] == Mark.X)
-                    nbCases += 1;
+                   ++ nbCases;
             }
         }
         return nbCases;

@@ -42,12 +42,10 @@ public class IterativeAIPlayer extends Player
             counter = 0;
             for (int j = 0; j < 3; j++)
             {
-            	if(boardGame[i][j] == Mark.O){
+            	if(boardGame[i][j] == Mark.O)
             		counter++;
-            	}
-            	else if(boardGame[i][j] == Mark.X){
+            	else if(boardGame[i][j] == Mark.X)
             		counter--;
-            	}
             }
             if (counter == -2 || counter == 2)
             {
@@ -55,9 +53,7 @@ public class IterativeAIPlayer extends Player
                 for (int j = 0; j < 3; j++)
                 {
                     if (boardGame[i][j] == Mark.EMPTY)
-                    {
                     	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
-                    }
                 }
             }
         }
@@ -67,12 +63,10 @@ public class IterativeAIPlayer extends Player
             counter = 0;
             for (int i = 0; i < 3; i++)
             {
-            	if(boardGame[i][j] == Mark.O){
+            	if(boardGame[i][j] == Mark.O)
             		counter++;
-            	}
-            	else if(boardGame[i][j] == Mark.X){
+            	else if(boardGame[i][j] == Mark.X)
             		counter--;
-            	}
             }
             if (counter == -2 || counter == 2)
             {
@@ -80,9 +74,7 @@ public class IterativeAIPlayer extends Player
                 for (int i = 0; i < 3; i++)
                 {
                     if (boardGame[i][j] == Mark.EMPTY)
-                    {
                     	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
-                    }
                 }
             }
         }
@@ -91,12 +83,10 @@ public class IterativeAIPlayer extends Player
         for (int i = 0; i < 3; i++)
         {
             int j = i;
-        	if(boardGame[i][j] == Mark.O){
+        	if(boardGame[i][j] == Mark.O)
         		counter++;
-        	}
-        	else if(boardGame[i][j] == Mark.X){
+        	else if(boardGame[i][j] == Mark.X)
         		counter--;
-        	}
         }
         if (counter == -2 || counter == 2)
         {
@@ -105,9 +95,7 @@ public class IterativeAIPlayer extends Player
             {
                 int j = i;
                 if (boardGame[i][j] == Mark.EMPTY)
-                {
                 	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
-                }
             }
         }
         // Teste la diagonale de droite à gauche
@@ -115,12 +103,10 @@ public class IterativeAIPlayer extends Player
         int decreaser = 2; // decreaser est ici l'équivalent de j
         for (int i = 0; i < 3; i++)
         {
-        	if(boardGame[i][decreaser] == Mark.O){
+        	if(boardGame[i][decreaser] == Mark.O)
         		counter++;
-        	}
-        	else if(boardGame[i][decreaser] == Mark.X){
+        	else if(boardGame[i][decreaser] == Mark.X)
         		counter--;
-        	}
         	decreaser--;
         }
         if (counter == -2 || counter == 2)
@@ -130,94 +116,55 @@ public class IterativeAIPlayer extends Player
             for (int i = 0; i < 3; i++)
             {
                 if (boardGame[i][decreaser] == Mark.EMPTY)
-                {
-                    best_i = i;
-                    best_j = decreaser;
-                }
+                    best_i = i; best_j = decreaser;
                 decreaser--;
             }
         }
         // Choisis la case centrale si vide et pas d'autre meilleur choix
         if (!found && boardGame[1][1] == Mark.EMPTY)
-        {
         	return new Coordinate(1,1);
-        }
         else if (!found) {
             // Vérifie les cas particuliers
             int nbCasesUsed = nbCasesUsed(boardGame);
             if (nbCasesUsed == 3)
             {
                 if (boardGame[0][0] == Mark.O && boardGame[2][2] == Mark.O)
-                {
                 	return new Coordinate(0,1);
-                } 
                 else if (boardGame[0][2] == Mark.O && boardGame[2][0] == Mark.O)
-                {
                 	return new Coordinate(0,1);
-                }
                 else if (boardGame[1][2] == Mark.O && boardGame[2][0] == Mark.O)
-                {
                 	return new Coordinate(2,1);
-                } 
                 else if (boardGame[0][0] == Mark.O && boardGame[1][2] == Mark.O)
-                {
                 	return new Coordinate(0,1);
-                }
                 else if (boardGame[1][0] == Mark.O && boardGame[2][2] == Mark.O)
-                {
                 	return new Coordinate(2,1);
-                }
                 else if (boardGame[0][2] == Mark.O && boardGame[1][0] == Mark.O)
-                {
                 	return new Coordinate(0,1);
-                }
                 else if (boardGame[1][0] == Mark.O && boardGame[2][1] == Mark.O)
-                {
                 	return new Coordinate(2,0);
-                }
                 else if (boardGame[1][2] == Mark.O && boardGame[2][1] == Mark.O)
-                {
                 	return new Coordinate(2,2);
-                }
                 else if (boardGame[1][0] == Mark.O && boardGame[0][1] == Mark.O)
-                {
                 	return new Coordinate(0,0);
-                }
                 else if (boardGame[0][1] == Mark.O && boardGame[1][2] == Mark.O)
-                {
                 	return new Coordinate(0,2);
-                }
             }
             else
             {
                 if (boardGame[0][2] == Mark.EMPTY)
-                {
                 	return new Coordinate(0,2);
-                }
                 else if (boardGame[2][0] == Mark.EMPTY)
-                {
                 	return new Coordinate(2,0);
-                }
                 else if (boardGame[2][2] == Mark.EMPTY)
-                {
                 	return new Coordinate(2,2);
-                }
                 else if (boardGame[0][1] == Mark.EMPTY)
-                {
                 	return new Coordinate(0,1);
-                }
                 else if (boardGame[1][0] == Mark.EMPTY)
-                {
                 	return new Coordinate(1,0);
-                }
                 else if (boardGame[1][2] == Mark.EMPTY)
-                {
                 	return new Coordinate(1,2);
-                }
                 else if (boardGame[2][1] == Mark.EMPTY)
-                {
                 	return new Coordinate(1,1);
-                }
             }
         }
         return new Coordinate(best_i, best_j);
@@ -231,9 +178,7 @@ public class IterativeAIPlayer extends Player
             for (int j = 0; j < 3; j++)
             {
                 if (boardGame[i][j] == Mark.O || boardGame[i][j] == Mark.X)
-                {
                     nbCases += 1;
-                }
             }
         }
         return nbCases;

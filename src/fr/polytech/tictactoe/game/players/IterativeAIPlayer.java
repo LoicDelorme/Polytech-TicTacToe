@@ -32,31 +32,31 @@ public class IterativeAIPlayer extends Player
 	public Coordinate getNextChoice(Mark[][] boardGame)
 	{
 		boolean found = false;
-        int best_i = 0, best_j = 0;
+        int best_i = 0;
+        int best_j = 0;
         
         // Vérifie qu'une ligne peut gagner, ou perdre
-        int score;
+        int counter;
         for (int i = 0; i < 3; i++)
         {
-            score = 0;
+            counter = 0;
             for (int j = 0; j < 3; j++)
             {
             	if(boardGame[i][j] == Mark.O){
-            		score++;
+            		counter++;
             	}
             	else if(boardGame[i][j] == Mark.X){
-            		score--;
+            		counter--;
             	}
             }
-            if (score == -2 || score == 2)
+            if (counter == -2 || counter == 2)
             {
                 found = true;
                 for (int j = 0; j < 3; j++)
                 {
                     if (boardGame[i][j] == Mark.EMPTY)
                     {
-                        best_i = i;
-                        best_j = j;
+                    	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
                     }
                 }
             }
@@ -64,42 +64,41 @@ public class IterativeAIPlayer extends Player
         // Vérifie qu'une colonne peut gagner, ou perdre
         for (int j = 0; j < 3; j++)
         {
-            score = 0;
+            counter = 0;
             for (int i = 0; i < 3; i++)
             {
             	if(boardGame[i][j] == Mark.O){
-            		score++;
+            		counter++;
             	}
             	else if(boardGame[i][j] == Mark.X){
-            		score--;
+            		counter--;
             	}
             }
-            if (score == -2 || score == 2)
+            if (counter == -2 || counter == 2)
             {
                 found = true;
                 for (int i = 0; i < 3; i++)
                 {
                     if (boardGame[i][j] == Mark.EMPTY)
                     {
-                        best_i = i;
-                        best_j = j;
+                    	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
                     }
                 }
             }
         }
         // Teste la diagonale de gauche à droite
-        score = 0;
+        counter = 0;
         for (int i = 0; i < 3; i++)
         {
             int j = i;
         	if(boardGame[i][j] == Mark.O){
-        		score++;
+        		counter++;
         	}
         	else if(boardGame[i][j] == Mark.X){
-        		score--;
+        		counter--;
         	}
         }
-        if (score == -2 || score == 2)
+        if (counter == -2 || counter == 2)
         {
             found = true;
             for (int i = 0; i < 3; i++)
@@ -107,25 +106,24 @@ public class IterativeAIPlayer extends Player
                 int j = i;
                 if (boardGame[i][j] == Mark.EMPTY)
                 {
-                    best_i = i;
-                    best_j = j;
+                	return new Coordinate(i,j); //Point décisif donc return pour ne pas à avoir à finir l'algo
                 }
             }
         }
         // Teste la diagonale de droite à gauche
-        score = 0;
+        counter = 0;
         int decreaser = 2; // decreaser est ici l'équivalent de j
         for (int i = 0; i < 3; i++)
         {
         	if(boardGame[i][decreaser] == Mark.O){
-        		score++;
+        		counter++;
         	}
         	else if(boardGame[i][decreaser] == Mark.X){
-        		score--;
+        		counter--;
         	}
         	decreaser--;
         }
-        if (score == -2 || score == 2)
+        if (counter == -2 || counter == 2)
         {
             found = true;
             decreaser = 2;
@@ -139,104 +137,86 @@ public class IterativeAIPlayer extends Player
                 decreaser--;
             }
         }
-        // Choisis la case centrae si vide et pas d'autre meilleur choix
+        // Choisis la case centrale si vide et pas d'autre meilleur choix
         if (!found && boardGame[1][1] == Mark.EMPTY)
         {
-            best_i = 1;
-            best_j = 1;
+        	return new Coordinate(1,1);
         }
         else if (!found) {
-            // Vérifie les scénarios spécifiques, plus difficiles
+            // Vérifie les cas particuliers
             int nbCasesUsed = nbCasesUsed(boardGame);
             if (nbCasesUsed == 3)
             {
                 if (boardGame[0][0] == Mark.O && boardGame[2][2] == Mark.O)
                 {
-                    best_i = 0;
-                    best_j = 1;
+                	return new Coordinate(0,1);
                 } 
                 else if (boardGame[0][2] == Mark.O && boardGame[2][0] == Mark.O)
                 {
-                    best_i = 0;
-                    best_j = 1;
+                	return new Coordinate(0,1);
                 }
                 else if (boardGame[1][2] == Mark.O && boardGame[2][0] == Mark.O)
                 {
-                    best_i = 2;
-                    best_j = 1;
+                	return new Coordinate(2,1);
                 } 
                 else if (boardGame[0][0] == Mark.O && boardGame[1][2] == Mark.O)
                 {
-                    best_i = 0;
-                    best_j = 1;
+                	return new Coordinate(0,1);
                 }
                 else if (boardGame[1][0] == Mark.O && boardGame[2][2] == Mark.O)
                 {
-                    best_i = 2;
-                    best_j = 1;
+                	return new Coordinate(2,1);
                 }
                 else if (boardGame[0][2] == Mark.O && boardGame[1][0] == Mark.O)
                 {
-                    best_i = 0;
-                    best_j = 1;
+                	return new Coordinate(0,1);
                 }
                 else if (boardGame[1][0] == Mark.O && boardGame[2][1] == Mark.O)
                 {
-                    best_i = 2;
-                    best_j = 0;
+                	return new Coordinate(2,0);
                 }
                 else if (boardGame[1][2] == Mark.O && boardGame[2][1] == Mark.O)
                 {
-                    best_i = 2;
-                    best_j = 2;
+                	return new Coordinate(2,2);
                 }
                 else if (boardGame[1][0] == Mark.O && boardGame[0][1] == Mark.O)
                 {
-                    best_i = 0;
-                    best_j = 0;
+                	return new Coordinate(0,0);
                 }
                 else if (boardGame[0][1] == Mark.O && boardGame[1][2] == Mark.O)
                 {
-                    best_i = 0;
-                    best_j = 2;
+                	return new Coordinate(0,2);
                 }
             }
             else
             {
                 if (boardGame[0][2] == Mark.EMPTY)
                 {
-                    best_i = 0;
-                    best_j = 2;
+                	return new Coordinate(0,2);
                 }
                 else if (boardGame[2][0] == Mark.EMPTY)
                 {
-                    best_i = 2;
-                    best_j = 0;
+                	return new Coordinate(2,0);
                 }
                 else if (boardGame[2][2] == Mark.EMPTY)
                 {
-                    best_i = 2;
-                    best_j = 2;
+                	return new Coordinate(2,2);
                 }
                 else if (boardGame[0][1] == Mark.EMPTY)
                 {
-                    best_i = 0;
-                    best_j = 1;
+                	return new Coordinate(0,1);
                 }
                 else if (boardGame[1][0] == Mark.EMPTY)
                 {
-                    best_i = 1;
-                    best_j = 0;
+                	return new Coordinate(1,0);
                 }
                 else if (boardGame[1][2] == Mark.EMPTY)
                 {
-                    best_i = 1;
-                    best_j = 2;
+                	return new Coordinate(1,2);
                 }
                 else if (boardGame[2][1] == Mark.EMPTY)
                 {
-                    best_i = 1;
-                    best_j = 1;
+                	return new Coordinate(1,1);
                 }
             }
         }
@@ -256,7 +236,6 @@ public class IterativeAIPlayer extends Player
                 }
             }
         }
-
         return nbCases;
     }
 }

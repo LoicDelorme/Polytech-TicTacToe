@@ -20,7 +20,12 @@ public class RecursiveAIPlayer extends Player
 	/**
 	 * The depth.
 	 */
-	public static final int DEPTH = 3;
+	public static final int DEPTH = 9;
+
+	/**
+	 * The opponent mark.
+	 */
+	private Mark opponentMark;
 
 	/**
 	 * Create an artificial intelligence player.
@@ -97,7 +102,7 @@ public class RecursiveAIPlayer extends Player
 			{
 				if (boardGame[x][y] == Mark.EMPTY)
 				{
-					boardGame[x][y] = getRepresentation();
+					boardGame[x][y] = getOpponentMark();
 					tmpValue = max(boardGame, depth - 1);
 
 					if (tmpValue < minValue)
@@ -206,15 +211,67 @@ public class RecursiveAIPlayer extends Player
 	 */
 	private int numberOfSeries(Mark representation, Mark[][] boardGame, int n)
 	{
-		// int counter = 0;https://openclassrooms.com/courses/l-algorithme-min-max
-		// for (int x = 0; x < TicTacToe.NB_LINES; x++)
-		// {
-		// if (boardGame[x][x] == representation)
-		// {
-		// counter++;
-		// }
-		// }
-		return 0;
+		int nbSeries = 0;
+
+		// Diagonals
+		int counter = 0;
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			if (boardGame[x][x] == representation)
+			{
+				counter++;
+				if (counter == n)
+				{
+					nbSeries++;
+				}
+			}
+		}
+
+		// Diagonals
+		counter = 0;
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			if (boardGame[x][2 - x] == representation)
+			{
+				counter++;
+				if (counter == n)
+				{
+					nbSeries++;
+				}
+			}
+		}
+
+		// Lines
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			counter = 0;
+			for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+			{
+				if (boardGame[x][y] == representation)
+				{
+					counter++;
+					if (counter == n)
+					{
+						nbSeries++;
+					}
+				}
+			}
+
+			counter = 0;
+			for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+			{
+				if (boardGame[y][x] == representation)
+				{
+					counter++;
+					if (counter == n)
+					{
+						nbSeries++;
+					}
+				}
+			}
+		}
+
+		return nbSeries;
 	}
 
 	/**
@@ -224,10 +281,15 @@ public class RecursiveAIPlayer extends Player
 	 */
 	private Mark getOpponentMark()
 	{
-		final List<Mark> marks = new ArrayList<Mark>(Arrays.asList(Mark.values()));
-		marks.remove(Mark.EMPTY);
-		marks.remove(getRepresentation());
+		if (this.opponentMark == null)
+		{
+			final List<Mark> marks = new ArrayList<Mark>(Arrays.asList(Mark.values()));
+			marks.remove(Mark.EMPTY);
+			marks.remove(getRepresentation());
 
-		return marks.get(0);
+			this.opponentMark = marks.get(0);
+		}
+
+		return this.opponentMark;
 	}
 }

@@ -2,7 +2,7 @@ package fr.polytech.tictactoe;
 
 import fr.polytech.tictactoe.game.boardgame.Mark;
 import fr.polytech.tictactoe.game.players.HumanPlayer;
-import fr.polytech.tictactoe.game.players.IterativeAIPlayer;
+import fr.polytech.tictactoe.game.players.RecursiveAIPlayer;
 import fr.polytech.tictactoe.view.JavaFXTicTacToeViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +39,7 @@ public class Launcher extends Application
 		final Parent root = loader.load();
 
 		final JavaFXTicTacToeViewController controller = loader.getController();
-		controller.initializeContent(new HumanPlayer("Human", Mark.O), new IterativeAIPlayer("AI", Mark.X));
+		controller.initializeContent(new HumanPlayer("Human", Mark.O), new RecursiveAIPlayer("AI", Mark.X));
 
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setResizable(false);

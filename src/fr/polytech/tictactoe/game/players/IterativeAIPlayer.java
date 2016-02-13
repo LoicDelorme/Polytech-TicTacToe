@@ -32,103 +32,143 @@ public class IterativeAIPlayer extends Player
 	public Coordinate getNextChoice(Mark[][] boardGame)
 	{
 		boolean found = false;
-        int best_i = 0;
-        int best_j = 0;
-        
-        // Vérifie qu'une ligne peut gagner, ou perdre
-        int counter;
-        for (int i = 0; i < 3; i++)
-        {
-            counter = 0;
-            for (int j = 0; j < 3; j++)
-            {
-            	if(boardGame[i][j] == Mark.O)
-            		counter++;
-            	else if(boardGame[i][j] == Mark.X)
-            		counter--;
-            }
-            if (counter == -2 || counter == 2)
-            {
-                found = true;
-                for (int j = 0; j < 3; j++)
-                {
-                    if (boardGame[i][j] == Mark.EMPTY)
-                    	return new Coordinate(i,j); //Point décisif donc return pour ne pas avoir à finir l'algo
-                }
-            }
-        }
-        // Vérifie qu'une colonne peut gagner, ou perdre
-        for (int j = 0; j < 3; j++)
-        {
-            counter = 0;
-            for (int i = 0; i < 3; i++)
-            {
-            	if(boardGame[i][j] == Mark.O)
-            		counter++;
-            	else if(boardGame[i][j] == Mark.X)
-            		counter--;
-            }
-            if (counter == -2 || counter == 2)
-            {
-                found = true;
-                for (int i = 0; i < 3; i++)
-                {
-                    if (boardGame[i][j] == Mark.EMPTY)
-                    	return new Coordinate(i,j); //Point décisif donc return pour ne pas avoir à finir l'algo
-                }
-            }
-        }
-        // Teste la diagonale de gauche à droite
-        counter = 0;
-        for (int i = 0; i < 3; i++)
-        {
-            int j = i;
-        	if(boardGame[i][j] == Mark.O)
-        		counter++;
-        	else if(boardGame[i][j] == Mark.X)
-        		counter--;
-        }
-        if (counter == -2 || counter == 2)
-        {
-            found = true;
-            for (int i = 0; i < 3; i++)
-            {
-                int j = i;
-                if (boardGame[i][j] == Mark.EMPTY)
-                	return new Coordinate(i,j); //Point décisif donc return pour ne pas avoir à finir l'algo
-            }
-        }
-        // Teste la diagonale de droite à gauche
-        counter = 0;
-        int decreaser = 2; // decreaser est ici l'équivalent de j
-        for (int i = 0; i < 3; i++)
-        {
-        	if(boardGame[i][decreaser] == Mark.O)
-        		counter++;
-        	else if(boardGame[i][decreaser] == Mark.X)
-        		counter--;
-        	decreaser--;
-        }
-        if (counter == -2 || counter == 2)
-        {
-            found = true;
-            decreaser = 2;
-            for (int i = 0; i < 3; i++)
-            {
-                if (boardGame[i][decreaser] == Mark.EMPTY)
-                    best_i = i; best_j = decreaser;
-                decreaser--;
-            }
-        }
-        // Choisis la case centrale si vide et pas d'autre meilleur choix
-        if (!found && boardGame[1][1] == Mark.EMPTY)
-        	return new Coordinate(1,1);
-        else if (!found) {
-            // Vérifie les cas particuliers
-            int nbCasesUsed = nbCasesUsed(boardGame);
-            if (nbCasesUsed == 3)
-            {
-                if (boardGame[0][0] == Mark.O && boardGame[2][2] == Mark.O)
+		int bestX = 0;
+		int bestY = 0;
+		int counter = 0;
+
+		// Check lines
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			counter = 0;
+			for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+			{
+				if (boardGame[x][y] == Mark.O)
+				{
+					counter++;
+				}
+				else
+				{
+					if (boardGame[x][y] == Mark.X)
+					{
+						counter--;
+					}
+				}
+			}
+
+			if (Math.abs(counter) == 2)
+			{
+				found = true;
+				for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+				{
+					if (boardGame[x][y] == Mark.EMPTY)
+					{
+						return new Coordinate(x, y);
+					}
+				}
+			}
+		}
+
+		// Check columns
+		for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+		{
+			counter = 0;
+			for (int x = 0; x < TicTacToe.NB_LINES; x++)
+			{
+				if (boardGame[x][y] == Mark.O)
+				{
+					counter++;
+				}
+				else
+				{
+					if (boardGame[x][y] == Mark.X)
+					{
+						counter--;
+					}
+				}
+			}
+
+			if (Math.abs(counter) == 2)
+			{
+				found = true;
+				for (int x = 0; x < TicTacToe.NB_LINES; x++)
+				{
+					if (boardGame[x][y] == Mark.EMPTY)
+					{
+						return new Coordinate(x, y);
+					}
+				}
+			}
+		}
+
+		// Check first diagonal
+		counter = 0;
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			if (boardGame[x][x] == Mark.O)
+			{
+				counter++;
+			}
+			else
+			{
+				if (boardGame[x][x] == Mark.X)
+				{
+					counter--;
+				}
+			}
+		}
+
+		if (Math.abs(counter) == 2)
+		{
+			found = true;
+			for (int x = 0; x < TicTacToe.NB_LINES; x++)
+			{
+				if (boardGame[x][x] == Mark.EMPTY)
+				{
+					return new Coordinate(x, x);
+				}
+			}
+		}
+
+		// Check second diagonal
+		counter = 0;
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			if (boardGame[x][2 - x] == Mark.O)
+			{
+				counter++;
+			}
+			else
+			{
+				if (boardGame[x][2 - x] == Mark.X)
+				{
+					counter--;
+				}
+			}
+		}
+
+		if (Math.abs(counter) == 2)
+		{
+			found = true;
+			for (int x = 0; x < TicTacToe.NB_LINES; x++)
+			{
+				if (boardGame[x][2 - x] == Mark.EMPTY)
+				{
+					bestX = x;
+					bestY = 2 - x;
+				}
+			}
+		}
+
+		if ((!found) && (boardGame[1][1] == Mark.EMPTY))
+		{
+			return new Coordinate(1, 1);
+		}
+
+		if (!found)
+		{
+			if (nbCasesUsed(boardGame) == 3)
+			{
+				if (boardGame[0][0] == Mark.O && boardGame[2][2] == Mark.O)
                 	return new Coordinate(0,1);
                 else if (boardGame[0][2] == Mark.O && boardGame[2][0] == Mark.O)
                 	return new Coordinate(0,1);
@@ -148,10 +188,10 @@ public class IterativeAIPlayer extends Player
                 	return new Coordinate(0,0);
                 else if (boardGame[0][1] == Mark.O && boardGame[1][2] == Mark.O)
                 	return new Coordinate(0,2);
-            }
-            else
-            {
-                if (boardGame[0][2] == Mark.EMPTY)
+			}
+			else
+			{
+				if (boardGame[0][2] == Mark.EMPTY)
                 	return new Coordinate(0,2);
                 else if (boardGame[2][0] == Mark.EMPTY)
                 	return new Coordinate(2,0);
@@ -165,22 +205,33 @@ public class IterativeAIPlayer extends Player
                 	return new Coordinate(1,2);
                 else if (boardGame[2][1] == Mark.EMPTY)
                 	return new Coordinate(1,1);
-            }
-        }
-        return new Coordinate(best_i, best_j);
+			}
+		}
+
+		return new Coordinate(bestX, bestY);
 	}
-	
-    private int nbCasesUsed(Mark[][] boardGame)
-    {
-        int nbCases = 0;
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                if (boardGame[i][j] == Mark.O || boardGame[i][j] == Mark.X)
-                   ++ nbCases;
-            }
-        }
-        return nbCases;
-    }
+
+	/**
+	 * Count the number of cases used.
+	 * 
+	 * @param boardGame
+	 *            The board game.
+	 * @return The number of cases used.
+	 */
+	private int nbCasesUsed(Mark[][] boardGame)
+	{
+		int nbCasesUsed = 0;
+		for (int x = 0; x < TicTacToe.NB_LINES; x++)
+		{
+			for (int y = 0; y < TicTacToe.NB_COLUMNS; y++)
+			{
+				if (boardGame[x][y] != Mark.EMPTY)
+				{
+					nbCasesUsed++;
+				}
+			}
+		}
+
+		return nbCasesUsed;
+	}
 }
